@@ -1,0 +1,47 @@
+# ═══════════════════════════════════════════════════════════════════════════
+#  GITAmath Nexus V20
+#    docker compose up -d nexus              chạy một mình, không cần gì thêm
+#    docker compose --profile redis up -d    kèm Redis để giữ trạng thái
+# ═══════════════════════════════════════════════════════════════════════════
+services:
+  nexus:
+    image: node:22-alpine
+    container_name: gita-nexus-v20
+    working_dir: /app
+    command: node src/index.js
+    environment:
+      NODE_ENV: production
+      PORT: "9999"
+      HOST: 0.0.0.0
+      LOG_LEVEL: info
+      SNAPSHOT_DIR: /data/snapshots
+      # Điền khoá thật vào .env rồi bỏ comment dòng env_file bên dưới.
+      REDIS_URL: ""
+    # env_file: [.env]
+    volumes:
+      - ./:/app:ro
+      - nexus-data:/data
+    ports:
+      - "9999:9999"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:9999/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  redis:
+    image: redis:7-alpine
+    container_name: gita-nexus-redis
+    profiles: ["redis"]
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  nexus-data:
+  redis-data:

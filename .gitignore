@@ -1,0 +1,28 @@
+# NEO VÀO GỐC KHO BẰNG DẤU GẠCH ĐẦU DÒNG.
+#
+# Dòng "data/" không có gạch đầu khớp với MỌI thư mục tên data ở MỌI độ sâu —
+# kể cả src/data/, nơi đặt tầng lưu trữ bền vững của cả hệ thống. Hậu quả:
+# src/data/repository.js và src/data/portability.js chưa bao giờ được commit,
+# nên ai clone kho về cũng nhận một hệ thống chết ngay khi bật, với đúng một
+# dòng lỗi "Cannot find module './data/repository'".
+#
+# Lỗi này KHÔNG lộ ra trên máy đang làm việc, vì ở đó hai tệp ấy vẫn nằm trên
+# đĩa. Nó chỉ lộ khi clone sạch ra một chỗ khác — và đó là việc phải làm trước
+# khi đưa kho cho người khác.
+#
+# "dist/" cũng mang đúng lỗi ấy, chưa gây hại vì chưa có thư mục src/dist,
+# nhưng đã neo luôn để không có ngày ấy.
+/data/
+/dist/
+
+node_modules/
+desktop/node_modules/
+desktop/dist/
+.env
+*.log
+.DS_Store
+
+# Bản tĩnh dựng cho Cloudflare Pages — sinh lại bằng một lệnh, không theo dõi.
+# Nhưng CẤU HÌNH thì theo dõi: wrangler.toml và DOC-TRUOC.md nằm ở cloudflare/
+# chứ không nằm trong dist/, nên chúng vẫn vào kho.
+/cloudflare/dist/

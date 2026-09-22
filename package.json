@@ -1,0 +1,38 @@
+{
+  "name": "gita-nexus",
+  "version": "20.0.0",
+  "description": "GITAmath Nexus V20 — 500-agent workforce, curriculum, assessment and school operations with constitution, KPI and capacity governance",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "gita": "node bin/gita.js",
+    "bai-giang": "node bin/gita.js bai-giang",
+    "kiem-tra": "node bin/gita.js kiem-tra",
+    "dev": "node --watch src/index.js",
+    "verify": "node scripts/verify.js",
+    "roster": "node scripts/roster-table.js",
+    "roster:csv": "node scripts/roster-table.js --csv",
+    "test": "node --test test/*.test.js",
+    "smoke": "bash scripts/smoke.sh",
+    "load": "node scripts/load-test.js",
+    "load:quick": "node scripts/load-test.js --quick",
+    "load:heavy": "node scripts/load-test.js --heavy",
+    "runbook": "node -e \"process.stdout.write(require('fs').readFileSync('RUNBOOK.md','utf8'))\"",
+    "dist:win": "npm --prefix desktop run dist:win",
+    "desktop": "npm --prefix desktop start",
+    "cloudflare": "node scripts/dung-ban-cloudflare.js",
+    "zip": "node scripts/xuat-zip.js"
+  },
+  "dependencies": {},
+  "optionalDependencies": {},
+  "devDependencies": {},
+  "bin": {
+    "gita": "./bin/gita.js"
+  }
+}
